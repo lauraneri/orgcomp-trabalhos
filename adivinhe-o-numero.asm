@@ -2,9 +2,9 @@
 	.align 0	#alinhando para string
 initMsg:.asciz "Bem-vindo! Este é o jogo 'Adivinhe o número'!\nO computador escolheu um número entre 1 e 100, você consegue adivinhar qual é? Faça seu chute!\n"
 			#mensagens de boas-vindas e instruções
-chuteMsg: .asciz "Chute: "
-randMsg: .asciz "\nNúmero aleatório: "
-finalMsg: .asciz "\nFim! Obrigada por jogar! :D\n"
+chuteMsg: .asciz "Chute: " #diz qual foi o chute do usuário
+randMsg: .asciz "\nNúmero aleatório: " #diz qual foi o nro aleatorio gerado
+finalMsg: .asciz "\nFim! Obrigada por jogar! :D\n" #finalização
 	
 	.align 2	#alinhando para inteiro
 
@@ -65,3 +65,16 @@ randNum:		#função que gera o numero pseudoaleatorio
 	rem a1, t1, a2	# resultado = conta_aux % 100
 
 	jr ra
+	
+#LISTA DE REGISTRADORES E VARIAVEIS QUE ELES REPRESENTAM
+
+# s0 = randNumber -> NRO ALEATORIO GERADO
+# s1 = chute -> CHUTE FEILO PELO USUARIO
+
+# -- funcao randNum --
+# a2 = mod -> MODULO IGUAL A 100
+# a3 = a -> NRO PRIMO QUALQUER
+# a4 = c -> NRO PRIMO QUALQUER
+# a5 = seed -> NRO INTEIRO QUALQUER
+# t1 = conta_aux -> AUXILIAR PARA REALIZAÇÃO DAS CONTAS
+# a1 = resultado -> RESULTADO DE NRO ALEATORIO FINAL
