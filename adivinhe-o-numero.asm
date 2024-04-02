@@ -34,13 +34,13 @@ main:
 	add a0, zero, s1
 	ecall		#--
 	
-	li a7, 4
+	li a7, 4	#printando o nro aleatorio que foi gerado --
 	la a0, randMsg
 	ecall
 	
 	li a7, 1
 	add a0, zero, s0
-	ecall
+	ecall		#--
 	
 	addi a7, zero, 4 #printando msg final
 	la a0, finalMsg
