@@ -51,7 +51,8 @@ main:
 	ecall
 
 randNum:		#função que gera o numero pseudoaleatorio
-			#mod -> a2 = 100; a -> a3 = 223; c -> a4 = 607; seed -> a5 = ecall; conta_aux -> t1; resultado -> a1
+			#mod -> a2 = 100; a -> a3 = 223; c -> a4 = 607; seed -> a5 = ecall;
+			#aux_comp -> t0; conta_aux -> t1; resultado -> a1
 	addi a2, zero, 100 #queremos um numero ate 100, entao mod = 100
 	addi a3, zero, 223 #numero primo mto grande qualquer
 	addi a4, zero, 607 #outro numero primo mto grande qualquer
@@ -59,6 +60,10 @@ randNum:		#função que gera o numero pseudoaleatorio
 	addi a7, zero, 41 #gerando a seed com a syscall de RandInt--
 	ecall
 	add a5, zero, a0 #--
+	
+	addi t0, zero, 1 #aux_comp (auxiliar de comparação) = 1
+	
+	blt a5, t0, randNum #se o nro gerado for menor que 1, repete a funçao do começo
 	
 	mul t1, a5, a3	# conta_aux = seed * a
 	add t1, t1, a4	# conta_aux = conta_aux + c
@@ -76,5 +81,6 @@ randNum:		#função que gera o numero pseudoaleatorio
 # a3 = a -> NRO PRIMO QUALQUER
 # a4 = c -> NRO PRIMO QUALQUER
 # a5 = seed -> NRO INTEIRO QUALQUER
+# t0 = aux_comp -> AUXILIAR DA COMPARAÇÃO
 # t1 = conta_aux -> AUXILIAR PARA REALIZAÇÃO DAS CONTAS
 # a1 = resultado -> RESULTADO DE NRO ALEATORIO FINAL
