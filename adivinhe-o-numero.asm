@@ -52,18 +52,6 @@ main:
 	jal randNum
 	add s0, zero, a1 #s0 recebe o numero aleatorio entre 0 e 100;
 	
-	#li a7, 4	#printando o nro aleatorio que foi gerado --
-	#la a0, randMsg
-	#ecall
-	
-	#addi a7, zero, 1
-	#add a0, zero, s0
-	#ecall		#--
-	
-	#li a7, 4	#pula linha
-	#la a0, pulaLinha
-	#ecall
-	
 	#solicitando entrada de inteiro (chute);
 	addi a7, zero, 5 
 	ecall		
