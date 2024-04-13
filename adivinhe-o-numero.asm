@@ -239,7 +239,7 @@ criar_lista:
         
 imprimir_lista: 
 
-	beq a1, x0,  return  #retorna para a main;
+	beq a1, zero,  return  #retorna para a main;
 	
 	#imprimi a tentativa do usário;
 	lw a0, 0(a1)
