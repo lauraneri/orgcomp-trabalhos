@@ -35,7 +35,9 @@ mtBaixo: .asciz "Seu chute foi mais baixo que o numero correto, tente novamente!
 finalMsg: .asciz "\nFim! Obrigada por jogar! :D\n" 
 pulaLinha: .asciz "\n"
 espaco:	   .asciz " "	
-
+msg_parabens: .asciz "\n\nParabéns você acertou!\n"
+msg_lista: .asciz "Seus chutes: "
+msg_qtd_tentativas: .asciz "Quantidade de tentativas: "
 	.align 2	
 	.text
 	.align 2
@@ -132,6 +134,11 @@ sai_chute:
 	add a0, zero, s1
 	ecall		#--
 	
+	#parabeniza por ter acertado
+	li a7,4
+	la a0,msg_parabens
+	ecall
+	
 	#imprimi o numero aleatorio que foi gerado;
 	li a7, 4
 	la a0, randMsg
@@ -146,13 +153,23 @@ sai_chute:
 	la a0, pulaLinha
 	ecall
 	
-	#imprime a lista;
+	#imprime a lista
+	li a7,4
+	la a0,msg_lista
+	ecall
+	
+	
 	lw a1, 0(s2)
-	jal imprimir_lista 
+	jal imprimir_lista #--
 	
 	#pula uma linha para questões de organização;
 	li a7, 4
 	la a0, pulaLinha
+	ecall
+	
+	#imprime a quantidade de tentativas
+	li a7, 4
+	la a0, msg_qtd_tentativas
 	ecall
 	
 	li a7, 1
@@ -239,7 +256,7 @@ criar_lista:
         
 imprimir_lista: 
 
-	beq a1, zero,  return  #retorna para a main;
+	beq a1, zero,  return  #retorna para onde foi chamada
 	
 	#imprimi a tentativa do usário;
 	lw a0, 0(a1)
@@ -257,4 +274,3 @@ imprimir_lista:
 return:
 	#apenas uma função de modularização;
 	jr ra
-
