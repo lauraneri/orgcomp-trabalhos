@@ -185,8 +185,8 @@ randNum:
 	# - resultado -> a1;
 	
 	addi a2, zero, 100 #queremos um numero ate 100, entao mod = 100;
-	addi a3, zero, 23 #numero primo muito grande e qualquer;
-	addi a4, zero, 17 #outro numero primo muito grande e qualquer;
+	addi a3, zero, 23 #numero primo qualquer;
+	addi a4, zero, 17 #outro numero primo qualquer;
 	
 	#gerando a seed com a syscall de RandInt (presente do rars);
 	addi a7, zero, 41 
@@ -198,6 +198,10 @@ randNum:
 	blt a5, t0, randNum #se o número gerado for menor que 1, repete a funçao desde o começo;
 	
 	#manipulação dos registradores:
+
+	#a seed vem como um numero aleatorio muito grande
+	#se continuamos com ele, o resto da conta dá errado por estourar
+	#o limite, por isso fazemos seed%100
 	rem a5, a5, a2	# seed = seed % 100
 	mul t1, a5, a3	# conta_aux = seed * a
 	add t1, t1, a4	# conta_aux = conta_aux + c
