@@ -73,7 +73,7 @@ loop_chute:
 	
 	bge s1, s0, chute_alto  #pula para a condução chute_alto se s1>=s0;
 	
-	#printando msg de número muito baixo;
+	#imprimindo mensagem de número muito baixo;
 	addi a7, zero, 4 
 	la a0, mtBaixo
 	ecall
@@ -177,8 +177,8 @@ randNum:
 	#função que gera o numero pseudoaleatorio;
 	#Representação das variáveis do pseudocódigo em linguagens de alto nivel, seu registrador correspondente e o valor que possui:
 	# - mod -> a2 = 100; 
-	# - a -> a3 = 223; 
-	# - c -> a4 = 607; 
+	# - a -> a3 = 23; 
+	# - c -> a4 = 17; 
 	# - seed -> a5 = ecall;
 	# - aux_comp -> t0;  (auxiliar de comparação)
 	# - conta_aux -> t1;  (contador auxiliar)
