@@ -39,6 +39,7 @@ msg_parabens: .asciz "\n\nParabéns você acertou!\n"
 msg_lista: .asciz "Seus chutes: "
 msg_qtd_tentativas: .asciz "Quantidade de tentativas: "
 	.align 2	
+stl: .word 0
 	.text
 	.align 2
 	.globl main
@@ -62,8 +63,9 @@ main:
 	li s3, 0 
 	jal criar_lista
 	
-	mv s2, a1 # guarda o sentinela em s2;
-	mv a1, s2 #passa o sentinela como parâmetro; 
+	
+	
+	la a1, stl#passa o sentinela como parâmetro; 
 	mv a2, s1 # passa o numero que tem que ser inserido como parâmentro;
 	
 	jal inserir_no
@@ -84,7 +86,7 @@ loop_chute:
 	
 	add s1, zero, a0 #armazenando o chute em s1;
 	
-	mv a1, s2 #passa o sentinela como parâmetro ;
+	la a1, stl #passa o sentinela como parâmetro ;
 	mv a2, s1 # passa o numero que tem que ser inserido como parâmentro;
 	
 	jal inserir_no
@@ -104,7 +106,7 @@ chute_alto:
 	
 	add s1, zero, a0 #armazenando o chute em s1;
 	
-	mv a1, s2 #passa o sentinela como parâmetro; 
+	la a1, stl #passa o sentinela como parâmetro; 
 	mv a2, s1 # passa o numero que tem que ser inserido como parâmentro;
 	
 	jal inserir_no
@@ -146,8 +148,8 @@ sai_chute:
 	la a0,msg_lista
 	ecall
 	
-	
-	lw a1, 0(s2)
+	la t0,stl
+	lw a1, 0(t0)
 	jal imprimir_lista #--
 	
 	#pula uma linha para questões de organização;
@@ -240,11 +242,15 @@ criar_lista:
 	li a0, 4 
 	ecall
 	
-	mv a1,a0  #move o endereço do sentinela para o registrador a1;
 	
-	li t0, 0
 	
-	sw t0, 0(a1) #faz o sentinla apontar para NULL;
+	#move o endereço do sentinela para o stl
+	la t0,stl
+	sw a0,0(t0)
+	
+	li t1, 0
+	
+	sw t1, 0(t0) #faz o sentinla apontar para NULL;
         
         j return
         
