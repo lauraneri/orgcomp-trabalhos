@@ -213,17 +213,19 @@ inserir_no:
 
 	# nesta implementação a incersão é feita no final (FIFO) ;
 	# aloca o nó, os primeiro 4 bytes para 0 numero e os 4 últimos pra apontar para o proximo nó;
+	# a0 = novo no
+	# a1 = sentinela (que armazena o final da lista, vulgo o nó mais recente)
+	# a2 = numero do para ser inserido 
 	li a7, 9
 	li a0, 8  
 	ecall
 	
 	sw a2, 0(a0) # copia o numero do usuário para os primeiro 4 bytes do nó;
         
-        lw t0, 0(a1) # armazena o antigo começo da lista em t0;
+        lw t0, 0(a1) # armazena o antigo final da lista em t0;
         
-        addi t1, a0, 4 # armazena a parte de ponteiro do nó no t1;
-        
-        sw t0, 0(t1) # faz o nó apontar para o antigo começo da lista;
+      
+        sw t0, 4(a0) # faz o nó apontar para o antigo final da lista;
         
         sw a0, 0(a1) # faz o sentinela apontar pro novo no;
         
