@@ -6,9 +6,7 @@
 #LISTA DE REGISTRADORES E VARIAVEIS QUE ELES REPRESENTAM:
 # s0 = randNumber -> NRO ALEATORIO GERADO;
 # s1 = chute -> CHUTE FEILO PELO USUARIO;
-# -- lista encadeada --
-# s2 = SENTINELA DA LISTA ENCADEADA;
-# s3 = CONTADOR DO NÓS INSERIDOS;
+
 # -- funcao randNum --
 # a2 = mod -> MODULO IGUAL A 100;
 # a3 = a -> NUMERO PRIMO QUALQUER;
@@ -39,7 +37,8 @@ msg_parabens: .asciz "\n\nParabéns você acertou!\n"
 msg_lista: .asciz "Seus chutes: "
 msg_qtd_tentativas: .asciz "Quantidade de tentativas: "
 	.align 2	
-stl: .word 0
+stl: .word 0 #o sentinela
+count: .word # conta a quantidade de tentativas
 	.text
 	.align 2
 	.globl main
@@ -60,7 +59,9 @@ main:
 	add s1, zero, a0 #armazenando o chute em s1;
 	
 	# Para mostrar o numero total de tentativas será usado um contador e ele será inicalizado com zero;
-	li s3, 0 
+	la t0,count
+	li t1,0
+	sw t1,0(t0)
 	jal criar_lista
 	
 	
@@ -163,7 +164,8 @@ sai_chute:
 	ecall
 	
 	li a7, 1
-	add a0, zero, s3
+	la t0, count
+	lw a0,0(t0)
 	ecall	
 	
 	#imprimindo mensagem final;
@@ -231,25 +233,20 @@ inserir_no:
         
         sw a0, 0(a1) # faz o sentinela apontar pro novo no;
         
-        addi s3, s3, 1 # incrementa o contador ;
+        # incrementa o contador 
+        la t1,count
+        lw t2,0(t1)
+        addi t2,t2,1
+        sw t2,0(t1)
+       
         
         j return
         
 criar_lista: 
 	 
-	#alocação de memória para o sentilena;
-	li a7, 9
-	li a0, 4 
-	ecall
-	
-	
-	
-	#move o endereço do sentinela para o stl
+
+	li t1,0
 	la t0,stl
-	sw a0,0(t0)
-	
-	li t1, 0
-	
 	sw t1, 0(t0) #faz o sentinla apontar para NULL;
         
         j return
